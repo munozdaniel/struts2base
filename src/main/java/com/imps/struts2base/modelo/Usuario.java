@@ -19,6 +19,7 @@ public class Usuario implements UserDetails {
     private static final long serialVersionUID = -4993799715730712001L;
 
     private List<GrantedAuthority> perfiles;
+
     //Sobreescribiendo metodo de UserDetails
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -30,6 +31,10 @@ public class Usuario implements UserDetails {
     }
     private String username;
 
+    public void setUsername(final String username) {
+        this.username = username;
+    }
+
     @Override
     public String getUsername() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -39,6 +44,10 @@ public class Usuario implements UserDetails {
     @Override
     public String getPassword() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
     }
     private boolean accountNonExpired;
 
