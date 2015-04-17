@@ -17,8 +17,10 @@
         </result-types>-->
            
         <!-- FIN: TILES-->
-        
-        
+         <action name="j_spring_security_check">
+            <result >/WEB-INF/jsp/calculadoraForm.jsp</result>   
+        </action>  
+       
         
     </package>
     
