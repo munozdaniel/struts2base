@@ -22,7 +22,7 @@
     </bean>
 
     
-    <bean id="usuarioDAO" class="pe.com.slcsccy.pc.springsecurity.dao.UsuarioDAOImpl">
+    <bean id="usuarioDAO" class="com.imps.struts2base.dao.UsuarioDAOImpl">
     	<property name="dataSource" ref="dataSource"/>
     </bean>
     
