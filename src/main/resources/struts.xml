@@ -17,8 +17,8 @@
         </result-types>-->
            
         <!-- FIN: TILES-->
-         <action name="j_spring_security_check">
-            <result >/WEB-INF/jsp/calculadoraForm.jsp</result>   
+         <action name="j_spring_security_check" class="com.imps.struts2base.servicio.impl.CalculadoraServiceImpl" method="execute">
+                <result name="success" >/WEB-INF/jsp/calculadoraForm.jsp</result>   
         </action>  
        
         
