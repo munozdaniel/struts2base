@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:security="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+    <!-- [security:http]: Elemento para configurar la seguridad de la
+    aplicación web por medio del protocolo http -->
+    <!-- Atributos: 
+    [realm]: Atributo opcional que especifica el nombre del
+                alcance que será usado para todas las caracteristicas de seguridad que
+                requieren un nombre de alcance(por ejemplo autenticación BASIC y
+                DIGEST)
+    [auto-config]:Automáticamente registra un formulario de
+                registro, autenticaciòn BASIC, autenticación anónima, servicios de
+                cierre de sesion, opción de recordación de usuario, si es colocado a
+                'true' todas estas caracteristicas serán configuradas, pero cualquier
+                caracteristica puede sobreescribirse especificando mediante XML dichos
+                elementos.
+    -->
+    <security:http realm="Calculadora Realm" auto-config="true"
+                   access-decision-manager-ref="accessDecisionManager">
+        <security:intercept-url pattern="/public/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/private/super/**" access="PERFIL_SUPERVISOR" />
+        <security:intercept-url pattern="/private/admin/**" access="PERFIL_ADMINISTRADOR" />
+
+        <security:form-login 
+            login-page="/login.jsp" 
+            default-target-url="/public/mostrarFormulario.htm" 
+            authentication-failure-url="/loginerror.jsp"/>
+        <security:http-basic />
+        <!--
+                Especifica el tratamiento para los fines de sesión o logouts:
+                [invalidate-session]: Si el proceso de logout debe de terminar la sesión(default=true) 
+                [logout-url]: URL que determina el fin de sesión. 
+                [logout-success-url]: URL del recurso que será mostrado una vez terminada la sesión.
+        -->
+        <security:logout 
+            invalidate-session="true" 
+            logout-url="/public/terminarSesion.htm"
+            logout-success-url="/logout.jsp"  />
+        <security:remember-me/>
+    </security:http>
+    
+  
+
+    <!-- <security:authentication-manager>: Gestor de autenticacion, necesita un proveedor de autenticación 
+    sea mediante LDAP(<security:ldap-authentication-provider>) o normal(<security:authentication-provider>),
+    si el proveedor de autenticación es normal entonces podemos colocar un codificador de passwords 
+    <security:password-encoder> el cual soporta los algoritmos hash md4,md5 y sha, por default ningún algoritmo
+    es asignado por lo que la autenticación se procesa mediante texto plano, tambien podemos indicar si queremos
+    soporte de codificación en base64(por default es sí). Al proveedor de autenticación le podemos asignar los
+    password mediante formato xml de la siguiente forma:
+           <security:user-service>
+                   <security:user name="ccacique1" password="pass1" authorities="PERFIL_ADMINISTRADOR" />
+           <security:user-service> 
+    o podemos hacerlo mediante un bean que implemente la interface 
+    org.springframework.security.core.userdetails.UserDetailsService
+    <security:authentication-provider user-service-ref="UserDetailsServiceImpl"> la interface anterior
+    define un método para cargar un usuario dado su código de usuario:
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException;
+    -->
+    <!-- Gestión de usuario mediante XML: -->
+    <!-- 
+    <security:authentication-manager alias="autenticationManagerXML">
+            <security:authentication-provider>
+                    <security:password-encoder hash="plaintext"/>
+                    <security:user-service>
+                            <security:user name="ccacique1" password="pass1" authorities="PERFIL_ADMINISTRADOR" />
+                            <security:user name="ccacique2" password="pass2" authorities="PERFIL_SUPERVISOR" />
+                            <security:user name="ccacique3" password="pass3" authorities="PPERFIL_ADMINISTRADOR,PERFIL_SUPERVISOR" />
+                    </security:user-service>
+            </security:authentication-provider>
+    </security:authentication-manager>
+    -->
+	
+    <!-- 
+    Gestión de usuarios mediante un archivo de propiedades, este archivo de propiedades puede
+    estar en el classpath o en una carpeta en el servidor.
+    Si el archivo de propiedades está en el classpath de la aplicación:
+    <security:user-service properties="classpath:/usuarios.properties"/>
+    Si el archivo de propiedades está en una ruta en el servidor:
+    <security:user-service properties="file:I:\proyectos\pruebas-concepto\enelserver\usuarios.properties"/> 
+    -->
+    <!-- 
+   <security:authentication-manager alias="autenticationManagerFileProperties">
+           <security:authentication-provider>
+                   <security:password-encoder hash="plaintext"/>
+                   <security:user-service properties="classpath:/usuarios.properties"/> 
+           </security:authentication-provider>
+   </security:authentication-manager>
+    -->
+	
+    <!-- Gestión de usuarios mediante un proveedor de servicios de usuarios: -->
+    <security:authentication-manager alias="autenticationManagerUserService">
+        <security:authentication-provider user-service-ref="usuarioService">
+            <security:password-encoder hash="plaintext"/>
+        </security:authentication-provider>
+    </security:authentication-manager>  
+
+    <!-- Creo mi proveedor de usuarios -->
+    <!-- <b:bean id="usuarioServiceImpl" class="pe.com.slcsccy.pc.springsecurity.service.impl.UsuarioServiceImpl"/>  -->
+
+    <!-- Configura el gestor de decisiones de autenticación. -->
+    <b:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <!-- Define los participantes en el proceso de autenticación: -->
+        <b:property name="decisionVoters">
+            <b:list>
+                <b:ref bean="decisorDeRoles" />
+                <b:ref bean="decisorDeAutenticacion" />
+            </b:list>
+        </b:property>
+    </b:bean>
+
+    <!-- Decisor de roles, necesario para tener nombres de roles personalizados -->
+    <b:bean id="decisorDeRoles" class="org.springframework.security.access.vote.RoleVoter">
+        <b:property name="rolePrefix" value="PERFIL_" />
+    </b:bean>
+
+    <!-- Decisor de autenticación. -->
+    <b:bean id="decisorDeAutenticacion" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+
+    <!-- Automatically receives AuthenticationEvent messages -->
+    <b:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener" />
+</b:beans>
