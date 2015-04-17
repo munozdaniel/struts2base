@@ -29,6 +29,10 @@ public class Usuario implements UserDetails {
     public Collection<? extends GrantedAuthority> getPerfiles() {
         return perfiles;
     }
+
+    public void setPerfiles(List<? extends GrantedAuthority> buscarPerfilesDeUsuariosPorCodigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private String username;
 
     public void setUsername(final String username) {

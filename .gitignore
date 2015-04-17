@@ -38,6 +38,8 @@ local.properties
 #################
 
 target/
+target/classes/*
+target/*
 
 ############
 ## Other
