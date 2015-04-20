@@ -38,7 +38,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public List<Usuario> buscarUsuarioPorCodigo(String codigo) {
-        return this.jdbcTemplate.query("SELECT * FORM usuario WHERE cod_usuario= ?",
+        return this.jdbcTemplate.query("SELECT * FROM usuario WHERE cod_usuario= ?",
                 new RowMapper() {
 
                     @Override

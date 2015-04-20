@@ -14,84 +14,65 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author dmunioz
  */
-public class Usuario implements UserDetails {
 
-    private static final long serialVersionUID = -4993799715730712001L;
+public class Usuario implements UserDetails{
 
-    private List<GrantedAuthority> perfiles;
-
-    //Sobreescribiendo metodo de UserDetails
-    @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        return perfiles;
-    }
-
-    public Collection<? extends GrantedAuthority> getPerfiles() {
-        return perfiles;
-    }
-
-    public void setPerfiles(List<? extends GrantedAuthority> buscarPerfilesDeUsuariosPorCodigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    private String username;
-
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String getUsername() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    private String password;
-
-    @Override
-    public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-    private boolean accountNonExpired;
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-    private boolean accountNonLocked;
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-    private boolean credentialsNonExpired;
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-    private boolean enabled;
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
+	private static final long serialVersionUID = -4993799715730712001L;
+	
+	private List<GrantedAuthority> perfiles;
+	private String username;
+	private String password;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private boolean enabled;
+	
+	public Collection<? extends GrantedAuthority> getPerfiles() {
+		return perfiles;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setPerfiles(List<? extends GrantedAuthority> perfiles) {
+		this.perfiles = (List<GrantedAuthority>) perfiles;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isAccountNonExpired() {
+		return accountNonExpired;
+	}
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+	public boolean isCredentialsNonExpired() {
+		return credentialsNonExpired;
+	}
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public Collection<GrantedAuthority> getAuthorities() {
+		return perfiles;
+	}
+	
 }
