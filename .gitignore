@@ -48,3 +48,9 @@ target/*
 old/
 # Due to ISIS-227
 target-ide/
+
+############
+## Netbeans
+############
+/glassfish.xml
+
