@@ -18,7 +18,9 @@
         </result-types>-->
            
         <!-- FIN: TILES-->
-    
+    <action name="login">       
+            <result>login.jsp</result>
+        </action>
         
     </package>
     
