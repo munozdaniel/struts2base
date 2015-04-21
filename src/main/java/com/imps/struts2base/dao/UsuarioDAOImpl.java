@@ -5,7 +5,7 @@
  */
 package com.imps.struts2base.dao;
 
-import com.imps.struts2base.modelo.Perfil;
+import com.imps.struts2base.modelo.Sectores;
 import com.imps.struts2base.modelo.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,15 +58,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public List<? extends GrantedAuthority> buscarPerfilesDeUsuariosPorCodigo(String codigo) {
-        return this.jdbcTemplate.query("select cod_perfil from usuario_perfil where cod_usuario = ?",
+    public List<? extends GrantedAuthority> buscarSectoresDeUsuariosPorCodigo(String codigo) {
+        return this.jdbcTemplate.query("select sector_perfil from sectores s, usuario u where u.usuario_sector=s.sector_id and cod_usuario = ?",
                 new RowMapper() {
 
                     @Override
                     public Object mapRow(ResultSet rs, int i) throws SQLException {
-                        Perfil perfil = new Perfil();
-                        perfil.setNombrePerfil(rs.getString("cod_perfil"));
-                        return perfil;
+                        Sectores sectores = new Sectores();
+                        sectores.setNombrePerfil(rs.getString("sector_perfil"));
+                        return sectores;
                     }
                 }, codigo);
     }

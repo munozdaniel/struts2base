@@ -15,5 +15,5 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public interface UsuarioDAO {
     List<Usuario> buscarUsuarioPorCodigo(String codigo);
-    List<? extends GrantedAuthority> buscarPerfilesDeUsuariosPorCodigo(String codigo);
+    List<? extends GrantedAuthority> buscarSectoresDeUsuariosPorCodigo(String codigo);
 }
