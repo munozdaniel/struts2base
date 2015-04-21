@@ -35,7 +35,7 @@ public class UsuarioServiceImpl implements UserDetailsService {
 		if(usuarios.size()==0)throw new UsernameNotFoundException("Usuario no existe.");
 		else{
 			usuario = usuarios.get(0);
-			usuario.setPerfiles(usuarioDAO.buscarPerfilesDeUsuariosPorCodigo(username));
+			usuario.setPerfiles(usuarioDAO.buscarSectoresDeUsuariosPorCodigo(username));
 			return usuario;	
 		}
 	}
