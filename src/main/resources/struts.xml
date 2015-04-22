@@ -21,7 +21,9 @@
     <action name="login">       
             <result>login.jsp</result>
         </action>
-        
+         <action name="inicio">       
+            <result>index.jsp</result>
+        </action>
     </package>
     
        
