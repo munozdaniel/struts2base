@@ -3,6 +3,6 @@ Proyecto de prueba para administrar el acceso a las paginas por roles y permisos
 Frameworks utilizados: 
 Struts2 (MVC)
 Spring Security (Para administrar la seguridad)
-Tiles (Para generar la capa "View")
+Tiles 
 
-Url del Proyecto definitivo: imps.org.ar/web
+Url del Proyecto definitivo: imps.org.ar/web (develop)
