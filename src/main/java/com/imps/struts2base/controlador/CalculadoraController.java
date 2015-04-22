@@ -33,7 +33,7 @@ public class CalculadoraController {
     public String iniciar(Model model) throws Exception {
         logger.info("Iniciando aplicación de ejemplo de spring security.");
         model.addAttribute(new Calculadora());
-        return "opciones";
+        return "/index";
     }
 
     @RequestMapping(value = "/public/calcular.htm", method = RequestMethod.POST)
@@ -44,7 +44,7 @@ public class CalculadoraController {
         calculadora.setResultado(resultado);
         logger.info("Resultado del calculo:" + resultado);
         logger.info("Fin del calculo.");
-        return "calculadoraForm";
+        return "/WEB-INF/jsp/calculadoraForm";
     }
 
     @RequestMapping(value = "/public/mostrarFormulario.htm", method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class CalculadoraController {
         logger.info("Mostrar Formulario Anonimo.");
         model.addAttribute("seguridad", "Anonima");
         model.addAttribute(new Calculadora());
-        return "calculadoraForm";
+        return "/WEB-INF/jsp/calculadoraForm";
     }
 
     @RequestMapping(value = {"/private/super/mostrarFormulario1.htm",
@@ -61,7 +61,7 @@ public class CalculadoraController {
         logger.info("Mostrar Formulario Supervisor.");
         model.addAttribute("seguridad", "Supervisor");
         model.addAttribute(new Calculadora());
-        return "calculadoraForm";
+        return "/WEB-INF/jsp/calculadoraForm";
     }
 
     @RequestMapping(value = {"/private/admin/mostrarFormulario1.htm",
@@ -71,7 +71,7 @@ public class CalculadoraController {
         logger.info("Calcular Administrador.");
         model.addAttribute("seguridad", "Administrador");
         model.addAttribute(new Calculadora());
-        return "calculadoraForm";
+        return "/WEB-INF/jsp/calculadoraForm";
     }
 
 }

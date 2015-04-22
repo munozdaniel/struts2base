@@ -14,7 +14,7 @@
 	p:basename="mensajes"/>
    <!-- Cambiar la carpeta por la que corresponda -->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+     p:suffix=".jsp"/>
 	
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     
